@@ -1,0 +1,10 @@
+{
+    "JobTitle": "Job Title",
+    "Location": "Location",
+    "displayTitle1": "Personal",
+    "displayTitle2": "Job",
+    "displayTitle3": "Salary",
+    "displayField1": "Employee First Name",
+    "displayField2": "Job Title",
+    "displayField3": "Amount"
+}
