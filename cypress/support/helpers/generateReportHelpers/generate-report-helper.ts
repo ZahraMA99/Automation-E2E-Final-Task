@@ -8,7 +8,7 @@ let EMPLOYEE_NUMBER: string;
 let NUM_OF_EMPLOYEES: number = 3;
 
 export default class GenerateReportHelper {
-  static createEmployeeWithJobDetails() {
+  static createEmployeeWithJobDetails() { // 
     // Generate location
     GenerateLocationHelper.addLocationViaAPI().then((resolve) => {
       LOCATION_ID = parseInt(`${resolve}`, 10);

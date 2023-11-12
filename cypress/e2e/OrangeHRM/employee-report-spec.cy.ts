@@ -1,6 +1,6 @@
-import LoginPage from "../../support/page-objects/login-page";
+import LoginPage from "../../support/page-objects/geniricPages/login-page";
 import GenerateReportHelper from "../../support/helpers/generateReportHelpers/generate-report-helper";
-import ReportPage from "../../support/page-objects/report-page";
+import ReportPage from "../../support/page-objects/reportPages/report-page";
 import CreateNewEmployeeHelper from "../../support/helpers/generateReportHelpers/create-new-employee-helper";
 import GenerateJobTitleHelper from "../../support/helpers/generateReportHelpers/generate-job-title-helper";
 import GenerateLocationHelper from "../../support/helpers/generateReportHelpers/generate-location-helper";
@@ -18,15 +18,15 @@ describe("OrangHRM - Generate an Employee report", () => {
   });
 
   afterEach(function () {
-    //CreateNewEmployeeHelper.deleteEmployee();
+    //CreateNewEmployeeHelper.deleteEmployee(); ==> ask dana 
     GenerateJobTitleHelper.deleteJob();
     GenerateLocationHelper.deleteLocation();
-    //reportPageObj.deleteReport();
+    //reportPageObj.deleteReport(); !!
   });
 
-  it("O1: Generate an Employee report", () => {
+  it("OFT1: Generate an Employee report", () => {
     GenerateReportHelper.createEmployeeWithJobDetails();
     reportPageObj.generateReport();
-    //reportPageObj.reportValidation();
+    reportPageObj.reportValidation();
   });
 });

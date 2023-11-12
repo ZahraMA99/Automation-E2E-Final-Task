@@ -1,4 +1,4 @@
-import JobTitleInitClass from "../../init/job-title-init";
+import JobTitleInitClass from "../../init/reportInit/job-title-init";
 
 const baseUrl = Cypress.config("baseUrl");
 
