@@ -9,7 +9,7 @@ export default class EmployeeInitClass {
     return {
       empPicture: null,
       employeeId: `0${randomNumber}`,
-      firstName: `Lela${randomNumber}`,
+      firstName: `Lela_${GenerateRandomNumberClass.generateRandomNumber()}`,
       lastName: `L${randomNumber}`,
       middleName: "",
     };
@@ -31,7 +31,7 @@ export default class EmployeeInitClass {
       addDirectDeposit: false,
       comment: null,
       currencyId: "ILS",
-      salaryAmount: `${randomNumber}000`,
+      salaryAmount: `${GenerateRandomNumberClass.generateRandomNumber()}000`,
       salaryComponent: "Basic Salary",
     };
   }

@@ -1,14 +1,15 @@
-import { CreateEmployeePayload } from "../../interfaces/payload/CreateEmployeePayloadInterface";
 import EmployeeInitClass from "../../init/employee-init";
 
 const baseUrl = Cypress.config("baseUrl");
+
+let EMPLOYEE_NUMBER: string;
+let EMPLOYEE_ID: number;
+export let EMPLOYEE_NAME: string;
 
 export const URLs = {
   newEmployeeURL: `${baseUrl}/web/index.php/api/v2/pim/employees`,
   newEmployeeJobDetailsURL: `${baseUrl}/web/index.php/api/v2/pim/employees`,
 };
-
-let EMPLOYEE_NUMBER: string;
 
 export default class CreateNewEmployeeHelper {
   static addNewEmployeeViaAPI() {
@@ -19,12 +20,18 @@ export default class CreateNewEmployeeHelper {
         EmployeeInitClass.initNewEmployee()
       ).then((response) => {
         EMPLOYEE_NUMBER = response.data.empNumber;
+        EMPLOYEE_NAME = response.data.firstName;
+        EMPLOYEE_ID = response.data.employeeId;
         resolve(EMPLOYEE_NUMBER);
       });
     });
   }
 
-  static modifyJobDetails(empNum: string, jobTitleID: number, locationID:number) {
+  static modifyJobDetails(
+    empNum: string,
+    jobTitleID: number,
+    locationID: number
+  ) {
     cy.request({
       method: "PUT",
       url: `${URLs.newEmployeeJobDetailsURL}/${empNum}/job-details`,
@@ -41,6 +48,18 @@ export default class CreateNewEmployeeHelper {
       body: EmployeeInitClass.initEmployeeSalary(),
     }).then(() => {
       cy.log("---- SUCCESSFULL: UPDATE EMPLOYEE SALARY ----");
+    });
+  }
+
+  static deleteEmployee() {
+    cy.request({
+      method: "DELETE",
+      url: `${URLs.newEmployeeURL}`,
+      body: {
+        ids: [EMPLOYEE_ID],
+      },
+    }).then(() => {
+      cy.log("---- SUCCESSFULL: DELETE EMPLOYEE ----");
     });
   }
 }
