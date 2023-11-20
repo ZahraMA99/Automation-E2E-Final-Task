@@ -1,0 +1,14 @@
+{
+    "employeeNavlinks": {
+        "SubmitClaim": "Submit Claim",
+        "MyClaims": "My Claims"
+    },
+
+    "adminNavLinks": {
+        "Configuration": "Configuration",
+        "SubmitClaim": "Submit Claim",
+        "MyClaims": "My Claims",
+        "EmployeeClaims": "Employee Claims",
+        "AssignClaim": "Assign Claim"
+    }
+}

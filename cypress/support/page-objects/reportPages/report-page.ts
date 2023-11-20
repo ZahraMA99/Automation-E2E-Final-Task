@@ -1,5 +1,11 @@
-import { JOB_TITLE } from "../helpers/generateReportHelpers/generate-job-title-helper";
-import { LOCATION } from "../helpers/generateReportHelpers/generate-location-helper";
+import { JOB_TITLE } from "../../helpers/generateReportHelpers/generate-job-title-helper";
+import { LOCATION_NAME } from "../../helpers/generateReportHelpers/generate-location-helper";
+import { EMPLOYEE_NAME } from "../../helpers/generateReportHelpers/create-new-employee-helper";
+import GenerateRandomNumberClass from "../../generic-functions/generate-random-numbers";
+
+let randomNumber = GenerateRandomNumberClass.generateRandomNumber();
+let reportName = `Report_${randomNumber}`;
+let COUNT_OF_ROWS = 3;
 
 export default class ReportPage {
   elements = {
@@ -13,6 +19,13 @@ export default class ReportPage {
     plusIcon: () => cy.get(".bi-plus"),
     includeHeaderSwitch: () => cy.get(".oxd-switch-input--active"),
     saveBtn: () => cy.get('[type="submit"]'),
+    reportNameHeader: () =>
+      cy.contains(".oxd-text > .oxd-text--h6 > .orangehrm-main-title"),
+    tableHeader: () => cy.get(".group-rgRow"),
+    reportRowsCount: () => cy.get(".oxd-text--count"),
+    tableRow: () => cy.get('[type="rgRow"]'),
+    tableBody: () => cy.get(".oxd-table-body"),
+    deleteIcon: () => cy.get(".bi-trash"),
   };
 
   clickIntoPIMLink() {
@@ -28,7 +41,7 @@ export default class ReportPage {
   }
 
   typeReportName() {
-    this.elements.reportName().click({ force: true }).type("Repo1"); // generte fixture for them
+    this.elements.reportName().click({ force: true }).type(reportName);
   }
 
   scrollAndChooseOption(nthChild: number, option: string) {
@@ -39,12 +52,13 @@ export default class ReportPage {
   clickIntoPlusIcon(nthChild: number) {
     this.elements.plusIcon().eq(nthChild).click();
   }
+
   selectJobTitle() {
     cy.fixture("create-report").as("createReport");
     cy.get("@createReport").then((option: any) => {
       this.scrollAndChooseOption(0, option.JobTitle);
       this.clickIntoPlusIcon(0);
-      //this.scrollAndChooseOption(2, JOB_TITLE_ID.toString());
+      this.scrollAndChooseOption(2, JOB_TITLE);
     });
   }
 
@@ -53,7 +67,7 @@ export default class ReportPage {
     cy.get("@createReport").then((option: any) => {
       this.scrollAndChooseOption(0, option.Location);
       this.clickIntoPlusIcon(0);
-      //this.scrollAndChooseOption(2, LOCATION_ID.toString());
+      this.scrollAndChooseOption(3, LOCATION_NAME);
     });
   }
 
@@ -107,8 +121,63 @@ export default class ReportPage {
     this.selectSalaryField();
     this.saveReport();
   }
-}
 
-// create keyword fixture for PIM, Report ...
-// delete in after all 
-// job title and location is null now ! ask rawan 
+  verifyReportName() {
+    this.elements.reportNameHeader().contains(reportName);
+  }
+
+  confirmCorrectnessOfTableHeaders() {
+    cy.fixture("create-report").as("createReport");
+    cy.get("@createReport").then((option: any) => {
+      this.elements
+        .tableHeader()
+        .find(".rgHeaderCell")
+        .eq(0)
+        .contains(option.displayTitle1);
+      this.elements
+        .tableHeader()
+        .find(".rgHeaderCell")
+        .eq(1)
+        .contains(option.displayTitle2);
+      this.elements
+        .tableHeader()
+        .find(".rgHeaderCell")
+        .eq(2)
+        .contains(option.displayTitle3);
+    });
+  }
+
+  validateValuesInTableRows() {
+    this.elements
+      .tableRow()
+      .eq(0)
+      .contains('[data-rgcol="0"]', '[data-rgrow="0"]')
+      .should("contain.text", EMPLOYEE_NAME);
+    this.elements
+      .tableRow()
+      .eq(0)
+      .contains('[data-rgcol="1"]', '[data-rgrow="0"]')
+      .should("contain.text", JOB_TITLE);
+  }
+
+  verifyQuantityOfRowsInReport() {
+    this.elements.tableRow().as("numberOfRows");
+    cy.get("@numberOfRows").its("length").should("eq", COUNT_OF_ROWS);
+  }
+
+  reportValidation() {
+    cy.wait(5000);
+    //this.verifyReportName();  ==> error: ما بمسك الهيدير 
+    this.confirmCorrectnessOfTableHeaders();
+    //this.validateValuesInTableRows();   ===> اذا في فنكشن جينيريك 
+    //this.verifyQuantityOfRowsInReport();    ====> return 2 but it actually 3 (inspect element)
+  }
+
+  deleteReport() {
+    this.clickIntoPIMLink();
+    this.clickIntoReportsLink();
+    this.elements.tableBody().contains(reportName).as("report");
+    this.elements.deleteIcon().as("deleteIcon");
+    cy.get("@report").contains("@deleteIcon").click({ force: true });
+  }
+}

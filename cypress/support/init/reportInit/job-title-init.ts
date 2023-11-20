@@ -1,5 +1,5 @@
-import GenerateRandomNumberClass from "../generic-functions/generate-random-numbers";
-import { GenerateJobTitlePayload } from "../interfaces/payload/GenerateJobTitlePayloadInterface";
+import GenerateRandomNumberClass from "../../generic-functions/generate-random-numbers";
+import { GenerateJobTitlePayload } from "../../interfaces/payload/reportPaylpad/GenerateJobTitlePayloadInterface";
 
 let randomNumber = GenerateRandomNumberClass.generateRandomNumber();
 let jobSpecificationFilePath =

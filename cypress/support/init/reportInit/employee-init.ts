@@ -1,6 +1,6 @@
-import GenerateRandomNumberClass from "../generic-functions/generate-random-numbers";
-import { CreateEmployeePayload } from "../interfaces/payload/CreateEmployeePayloadInterface";
-import { EmployeeJobDetailsPayload } from "../interfaces/payload/EmployeeJobDetailsPayload";
+import GenerateRandomNumberClass from "../../generic-functions/generate-random-numbers";
+import { CreateEmployeePayload } from "../../interfaces/payload/reportPaylpad/CreateEmployeePayloadInterface";
+import { EmployeeJobDetailsPayload } from "../../interfaces/payload/reportPaylpad/EmployeeJobDetailsPayloadInterface";
 
 let randomNumber = GenerateRandomNumberClass.generateRandomNumber();
 
@@ -9,7 +9,7 @@ export default class EmployeeInitClass {
     return {
       empPicture: null,
       employeeId: `0${randomNumber}`,
-      firstName: `Lela${randomNumber}`,
+      firstName: `Lela_${GenerateRandomNumberClass.generateRandomNumber()}`,
       lastName: `L${randomNumber}`,
       middleName: "",
     };
@@ -31,7 +31,7 @@ export default class EmployeeInitClass {
       addDirectDeposit: false,
       comment: null,
       currencyId: "ILS",
-      salaryAmount: `${randomNumber}000`,
+      salaryAmount: `${GenerateRandomNumberClass.generateRandomNumber()}000`,
       salaryComponent: "Basic Salary",
     };
   }

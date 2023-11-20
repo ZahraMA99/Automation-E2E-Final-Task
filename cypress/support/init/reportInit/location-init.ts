@@ -1,5 +1,5 @@
-import GenerateRandomNumberClass from "../generic-functions/generate-random-numbers";
-import { GenerateLocationPayload } from "../interfaces/payload/GenerateLocationPayloadInterface";
+import GenerateRandomNumberClass from "../../generic-functions/generate-random-numbers";
+import { GenerateLocationPayload } from "../../interfaces/payload/reportPaylpad/GenerateLocationPayloadInterface";
 
 let randomNumber = GenerateRandomNumberClass.generateRandomNumber();
 

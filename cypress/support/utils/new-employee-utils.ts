@@ -1,4 +1,4 @@
-import { CreateEmployeePayload } from "../interfaces/payload/CreateEmployeePayloadInterface";
+import { CreateEmployeePayload } from "../interfaces/payload/reportPaylpad/CreateEmployeePayloadInterface";
 import { CreateEmployeeResponse } from "../interfaces/response/CreateEmployeeResponse";
 
 declare global {
